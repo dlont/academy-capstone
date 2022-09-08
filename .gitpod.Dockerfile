@@ -16,7 +16,7 @@ RUN wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -O ./awscliv2.
     rm -rf ./aws awscliv2.zip
 
 RUN pip install boto3
-RUN pyspark --packages org.apache.hadoop:hadoop-aws:3.1.2
+#RUN pyspark --packages org.apache.hadoop:hadoop-aws:3.1.2
 
 USER gitpod
 
