@@ -51,11 +51,7 @@ builder = SparkSession.builder
 builder.config("fs.s3n.awsAccessKeyId", current_credentials.access_key)
 builder.config("fs.s3n.awsSecretAccessKey", current_credentials.secret_key)
 builder.config("fs.s3.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
-builder.config('spark.jars.packages', 'org.apache.hadoop:hadoop-aws:3.1.2')
-builder.config('spark.jars.packages', 'net.snowflake:spark-snowflake_2.12:2.9.0-spark_3.1')
-builder.config('spark.jars.packages', 'net.snowflake:snowflake-jdbc:3.13.3')
-builder.config('spark.jars.packages', 'net.snowflake:snowflake-jdbc:3.8.0')
-builder.config('spark.jars.packages', 'net.snowflake:spark-snowflake_2.11:2.4.14-spark_2.4')
+builder.config('spark.jars.packages', 'org.apache.hadoop:hadoop-aws:3.1.2,net.snowflake:spark-snowflake_2.12:2.9.0-spark_3.1,net.snowflake:snowflake-jdbc:3.13.3')
 builder.config('fs.s3a.aws.credentials.provider', 'com.amazonaws.auth.DefaultAWSCredentialsProviderChain')
 
 spark = SparkSession.builder.getOrCreate()
@@ -121,10 +117,11 @@ SNOWFLAKE_SOURCE_NAME= "net.snowflake.spark.snowflake"
 
 sfOptions = {
 "sfURL"       : secret['URL'],
+"sfAccount"   : "Denys",
 "sfUser"      : secret['USER_NAME'],
 "sfPassword"  : secret['PASSWORD'],
 "sfDatabase"  : secret['DATABASE'],
-"sfSchema"    : "",
+"sfSchema"    : "DBT_DENYS",
 "sfWarehouse" : secret['WAREHOUSE'],
 "sfRole"      : secret['ROLE'],
 }

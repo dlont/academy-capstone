@@ -10,7 +10,7 @@ tasks:
       source venv/bin/activate
       pip install boto3
       pip install aws-secretsmanager-caching
-      pip install pyspark
+      pip install pyspark==3.1.2
 image:
   file: .gitpod.Dockerfile
 github:
