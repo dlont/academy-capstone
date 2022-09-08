@@ -1,4 +1,38 @@
 import os
+import json
+
+def normalize_json(data: dict) -> dict:
+  
+    new_data = dict()
+    for key, value in data.items():
+        if not isinstance(value, dict):
+            new_data[key] = value
+        else:
+            for k, v in value.items():
+                new_data[key + "_" + k] = v
+  
+    return new_data
+  
+  
+def generate_csv_data(data: dict) -> str:
+  
+    # Defining CSV columns in a list to maintain
+    # the order
+    csv_columns = data.keys()
+  
+    # Generate the first row of CSV 
+    csv_data = ",".join(csv_columns) + "\n"
+  
+    # Generate the single record present
+    new_row = list()
+    for col in csv_columns:
+        new_row.append(str(data[col]))
+  
+    # Concatenate the record with the column information 
+    # in CSV format
+    csv_data += ",".join(new_row) + "\n"
+  
+    return csv_data
 
 from boto3 import Session
 
@@ -27,7 +61,44 @@ spark = SparkSession.builder.getOrCreate()
 EXAMPLE_FILE = 'data_part_1.json'
 url = str(EXAMPLE_FILE)
 
-df = spark.read.json(EXAMPLE_FILE)
-df.printSchema()
+# df = spark.read.json(EXAMPLE_FILE)
+# df.printSchema()
+# df.show()
 
-df.show()
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType, ArrayType, BooleanType, TimestampType
+
+sensor_schema = StructType(fields=[
+    StructField('city', StringType(), False),
+    StructField(
+        'coordinates', #ArrayType(
+            StructType([
+                StructField('latitude', DoubleType(), False),
+                StructField('longitude', DoubleType(), False)
+            ])
+        # )
+    ),
+    StructField('country', StringType(), False),
+    StructField(
+        'date', #ArrayType(
+            StructType([
+                StructField('local', TimestampType(), False),
+                StructField('utc', TimestampType(), False)
+            ])
+        # )
+    ),
+    StructField('entity', StringType(), False),
+    StructField('isAnalysis', BooleanType(), False),
+    StructField('isMobile', BooleanType(), False),
+    StructField('location', StringType(), False),
+    StructField('locationId', IntegerType(), False),
+    StructField('parameter', StringType(), False),
+    StructField('sensorType', StringType(), False),
+    StructField('unit', StringType(), False),
+    StructField('value', DoubleType(), False),
+
+])
+
+schema_df = spark.read.json(EXAMPLE_FILE, schema=sensor_schema)
+flat_df = schema_df.select('city','country','coordinates.latitude','coordinates.latitude','date.local','date.utc','entity','isAnalysis','isMobile','location','locationId','parameter','sensorType','unit','value')
+# flat_df.show()
+
