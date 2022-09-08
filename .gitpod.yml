@@ -9,6 +9,7 @@ tasks:
       echo "source $(pwd)/venv/bin/activate" >> ~/.bashrc
       source venv/bin/activate
       pip install boto3
+      pip install aws-secretsmanager-caching
       pip install pyspark
 image:
   file: .gitpod.Dockerfile
