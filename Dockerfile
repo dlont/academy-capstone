@@ -7,8 +7,8 @@ RUN pip install boto3 && \
       pip install aws-secretsmanager-caching && \
       pip install pyspark==3.1.2
 
-WORKDIR .
+WORKDIR /app
 
 COPY src .
 
-RUN python src/1_3_sf.py
+CMD [ "python3", "-m" , "src/1_3_sf.py"]
