@@ -99,7 +99,7 @@ sensor_schema = StructType(fields=[
 ])
 
 schema_df = spark.read.json(EXAMPLE_FILE, schema=sensor_schema)
-flat_df = schema_df.select('city','country','coordinates.latitude','coordinates.latitude','date.local','date.utc','entity','isAnalysis','isMobile','location','locationId','parameter','sensorType','unit','value')
+flat_df = schema_df.select('city','country','coordinates.latitude','coordinates.longitude','date.local','date.utc','entity','isAnalysis','isMobile','location','locationId','parameter','sensorType','unit','value')
 
 import botocore 
 import botocore.session 
@@ -117,11 +117,11 @@ SNOWFLAKE_SOURCE_NAME= "net.snowflake.spark.snowflake"
 
 sfOptions = {
 "sfURL"       : secret['URL'],
-"sfAccount"   : "Denys",
+"sfAccount"   : "yw41113",
 "sfUser"      : secret['USER_NAME'],
 "sfPassword"  : secret['PASSWORD'],
 "sfDatabase"  : secret['DATABASE'],
-"sfSchema"    : "DBT_DENYS",
+"sfSchema"    : "DENYS_LONTKOVSKYI",
 "sfWarehouse" : secret['WAREHOUSE'],
 "sfRole"      : secret['ROLE'],
 }
