@@ -23,12 +23,11 @@ builder.config('fs.s3a.aws.credentials.provider', 'com.amazonaws.auth.DefaultAWS
 spark = SparkSession.builder.getOrCreate()
 
 # Example filename for tests
-EXAMPLE_FILE = 's3://dataminded-academy-capstone-resources/raw/open_aq/data_part_1.json'
+# EXAMPLE_FILE = 's3://dataminded-academy-capstone-resources/raw/open_aq/data_part_1.json'
+EXAMPLE_FILE = 'data_part_1.json'
 url = str(EXAMPLE_FILE)
-
-
-
 
 df = spark.read.json(EXAMPLE_FILE)
 df.printSchema()
 
+df.show()
