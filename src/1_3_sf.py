@@ -26,8 +26,8 @@ builder.config('fs.s3a.aws.credentials.provider', 'com.amazonaws.auth.DefaultAWS
 spark = SparkSession.builder.getOrCreate()
 
 # Example filename for tests
-# EXAMPLE_FILE = 's3://dataminded-academy-capstone-resources/raw/open_aq/data_part_1.json'
-EXAMPLE_FILE = 'data_part_1.json'
+EXAMPLE_FILE = 's3://dataminded-academy-capstone-resources/raw/open_aq/*.json'
+#EXAMPLE_FILE = 'data_part_1.json'
 url = str(EXAMPLE_FILE)
 
 # df = spark.read.json(EXAMPLE_FILE)
@@ -74,7 +74,7 @@ import botocore
 import botocore.session 
 from aws_secretsmanager_caching import SecretCache, SecretCacheConfig 
 
-client = botocore.session.get_session().create_client('secretsmanager')
+client = botocore.session.get_session().create_client('secretsmanager', region_name='eu-west-1')
 cache_config = SecretCacheConfig()
 cache = SecretCache( config = cache_config, client = client)
 
