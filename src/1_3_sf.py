@@ -1,38 +1,7 @@
 import os
 import json
 
-def normalize_json(data: dict) -> dict:
-  
-    new_data = dict()
-    for key, value in data.items():
-        if not isinstance(value, dict):
-            new_data[key] = value
-        else:
-            for k, v in value.items():
-                new_data[key + "_" + k] = v
-  
-    return new_data
-  
-  
-def generate_csv_data(data: dict) -> str:
-  
-    # Defining CSV columns in a list to maintain
-    # the order
-    csv_columns = data.keys()
-  
-    # Generate the first row of CSV 
-    csv_data = ",".join(csv_columns) + "\n"
-  
-    # Generate the single record present
-    new_row = list()
-    for col in csv_columns:
-        new_row.append(str(data[col]))
-  
-    # Concatenate the record with the column information 
-    # in CSV format
-    csv_data += ",".join(new_row) + "\n"
-  
-    return csv_data
+
 
 from boto3 import Session
 

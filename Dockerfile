@@ -1,5 +1,4 @@
 FROM public.ecr.aws/dataminded/spark-k8s-glue:v3.1.2-hadoop-3.3.1
-FROM python:3.8-slim-buster
 
 USER root
 
@@ -11,4 +10,4 @@ WORKDIR /app
 
 COPY src .
 
-CMD [ "python3", "-m" , "src/1_3_sf.py"]
+CMD [ "python3", "/app/1_3_sf.py"]
